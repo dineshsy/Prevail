@@ -10,7 +10,8 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  String _country = 'USA';
+  //Helpline Numbers
+  List<String> phoneNumbers=['044-29510500','044-25615025','044-28414513','044-28593990'];
 
   @override
   Widget build(BuildContext context) {
@@ -52,12 +53,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     fontSize: 25.0,
                     fontWeight: FontWeight.bold,
                   ),
-                ),
-                CountryDropdown(
-                  countries: ['CN', 'FR', 'IN', 'IT', 'UK', 'USA'],
-                  country: _country,
-                  onChanged: (val) => setState(() => _country = val),
-                ),
+                )
               ],
             ),
             SizedBox(height: screenHeight * 0.03),
@@ -89,7 +85,9 @@ class _HomeScreenState extends State<HomeScreen> {
                         vertical: 10.0,
                         horizontal: 20.0,
                       ),
-                      onPressed: () {},
+                      onPressed: () {
+                        _openPhoneNumberList(context);//On Pressed Event for Call Button
+                      },
                       color: Colors.red,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(30.0),
@@ -103,27 +101,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         style: Styles.buttonTextStyle,
                       ),
                       textColor: Colors.white,
-                    ),
-                    FlatButton.icon(
-                      padding: const EdgeInsets.symmetric(
-                        vertical: 10.0,
-                        horizontal: 20.0,
-                      ),
-                      onPressed: () {},
-                      color: Colors.blue,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(30.0),
-                      ),
-                      icon: const Icon(
-                        Icons.chat_bubble,
-                        color: Colors.white,
-                      ),
-                      label: Text(
-                        'Send SMS',
-                        style: Styles.buttonTextStyle,
-                      ),
-                      textColor: Colors.white,
-                    ),
+                    )
                   ],
                 ),
               ],
@@ -133,6 +111,48 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
     );
   }
+
+  //Opening List of Phone Numbers in a Bottom Modal
+  void _openPhoneNumberList(context){
+    showModalBottomSheet(context: context, builder: (BuildContext bc){
+      return Container(
+        height:MediaQuery.of(context).size.height*.40,
+        child:Padding(
+          padding: const EdgeInsets.all(10.0),
+          child: Column(
+            children: <Widget>[
+              Row(
+                children: <Widget>[
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text(
+                      "Tap to Call",
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 20),
+                    ),
+                  ),
+                  Spacer(),
+                  IconButton(
+                  icon: Icon(Icons.cancel,color: Colors.redAccent,size:30,), 
+                  onPressed: () { Navigator.of(context).pop();
+                  },
+                ),
+                ],
+              ),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                //For Each of the Numbers in List , Creading a custom widget CallModal
+                children: phoneNumbers.map((number) => CallModal(number: number)).toList(),
+              )
+            ],
+          ),
+        )
+      );
+
+    });
+  }
+
 
   SliverToBoxAdapter _buildPreventionTips(double screenHeight) {
     return SliverToBoxAdapter(

@@ -1,6 +1,52 @@
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
-class StatsGrid extends StatelessWidget {
+class StatsGrid extends StatefulWidget {
+  @override
+  _StatsGridState createState() => _StatsGridState();
+}
+
+class _StatsGridState extends State<StatsGrid> {
+  var total_case = 'NULL';
+  var total_death = 'NULL';
+  var total_recovered = 'NULL';
+  var total_active = 'NULL';
+  final String apiUrl = "https://api.covid19india.org/data.json";
+
+  List lis;
+
+  static Future<List<dynamic>> fetchUsers(url) async {
+    var result = await http.get(url);
+    return json.decode(result.body)['cases_time_series'];
+  }
+
+  void fetching() async {
+    lis = await fetchUsers(apiUrl);
+    print(lis[0]['dailyconfirmed']);
+    setState(() {
+      total_case = lis[lis.length - 1]['totalconfirmed'];
+      total_death = lis[lis.length - 1]['totaldeceased'];
+      total_recovered = lis[lis.length - 1]['totalrecovered'];
+      total_active = (int.parse(total_case) -
+              int.parse(total_death) -
+              int.parse(total_recovered))
+          .toString();
+    });
+    print(lis[lis.length - 1]);
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    fetching();
+  }
+
+  String show(val) {
+    if (val == 'NULL') return '...';
+    return val;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -10,16 +56,17 @@ class StatsGrid extends StatelessWidget {
           Flexible(
             child: Row(
               children: <Widget>[
-                _buildStatCard('Total Cases', '1.81 M', Colors.orange),
-                _buildStatCard('Deaths', '105 K', Colors.red),
+                _buildStatCard('Total Cases', show(total_case), Colors.orange),
+                _buildStatCard('Deaths', show(total_death), Colors.red),
               ],
             ),
           ),
           Flexible(
             child: Row(
               children: <Widget>[
-                _buildStatCard('Recovered', '391 K', Colors.green),
-                _buildStatCard('Active', '1.31 M', Colors.lightBlue),
+                _buildStatCard(
+                    'Recovered', show(total_recovered), Colors.green),
+                _buildStatCard('Active', show(total_active), Colors.lightBlue),
                 _buildStatCard('Critical', 'N/A', Colors.purple),
               ],
             ),
