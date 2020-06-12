@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_covid_dashboard_ui/config/palette.dart';
 import 'package:flutter_covid_dashboard_ui/config/styles.dart';
 import 'package:flutter_covid_dashboard_ui/data/data.dart';
+import 'package:flutter_covid_dashboard_ui/widgets/statewise_covid_bar_chart.dart';
 import 'package:flutter_covid_dashboard_ui/widgets/widgets.dart';
 
 class StatsScreen extends StatefulWidget {
@@ -31,7 +32,7 @@ class _StatsScreenState extends State<StatsScreen> {
           SliverPadding(
             padding: const EdgeInsets.only(top: 20.0),
             sliver: SliverToBoxAdapter(
-              child: CovidBarChart(covidCases: covidUSADailyNewCases),
+              child: StateWiseCovidBar(),
             ),
           ),
         ],
