@@ -10,7 +10,7 @@ class CovidBarChart extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 350.0,
+      // height: MediaQuery.of(context).size.height * 0.,
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.only(
@@ -45,7 +45,7 @@ class CovidBarChart extends StatelessWidget {
                     margin: 10.0,
                     showTitles: true,
                     textStyle: Styles.chartLabelsTextStyle,
-                    rotateAngle: 35.0,
+                    rotateAngle: 15.0,
                     getTitles: (double value) {
                       print(value);
                       switch (value.toInt()) {

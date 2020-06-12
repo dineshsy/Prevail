@@ -1,6 +1,69 @@
 import 'package:flutter/material.dart';
 
-class StatsGrid extends StatelessWidget {
+class StatsGrid extends StatefulWidget {
+  StatsGrid({Key key, this.list, this.tabind}) : super(key: key);
+  List list;
+  var tabind = 0;
+  @override
+  _StatsGridState createState() => _StatsGridState();
+}
+
+class _StatsGridState extends State<StatsGrid> {
+  var total_case = 'NULL';
+  var total_death = 'NULL';
+  var total_recovered = 'NULL';
+  var total_active = 'NULL';
+  var today_case = 'NULL';
+  var today_death = 'NULL';
+  var today_recovered = 'NULL';
+  var today_active = 'NULL';
+  var yesterday_case = 'NULL';
+  var yesterday_death = 'NULL';
+  var yesterday_recovered = 'NULL';
+  var yesterday_active = 'NULL';
+
+  void fetching() {
+    print("hello");
+    print(widget.list);
+    setState(() {
+      total_case = widget.list[widget.list.length - 1]['totalconfirmed'];
+      total_death = widget.list[widget.list.length - 1]['totaldeceased'];
+      total_recovered = widget.list[widget.list.length - 1]['totalrecovered'];
+      total_active = (int.parse(total_case) -
+              int.parse(total_death) -
+              int.parse(total_recovered))
+          .toString();
+      today_case = widget.list[widget.list.length - 1]['dailyconfirmed'];
+      today_death = widget.list[widget.list.length - 1]['dailydeceased'];
+      today_recovered = widget.list[widget.list.length - 1]['dailyrecovered'];
+      today_active = (int.parse(today_case) -
+              int.parse(today_death) -
+              int.parse(today_recovered))
+          .toString();
+      yesterday_case = widget.list[widget.list.length - 2]['dailyconfirmed'];
+      yesterday_death = widget.list[widget.list.length - 2]['dailydeceased'];
+      yesterday_recovered =
+          widget.list[widget.list.length - 2]['dailyrecovered'];
+      yesterday_active = (int.parse(yesterday_case) -
+              int.parse(yesterday_death) -
+              int.parse(yesterday_recovered))
+          .toString();
+    });
+    print(widget.list[widget.list.length - 2]);
+    print(widget.list[widget.list.length - 1]);
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    fetching();
+  }
+
+  String show(val) {
+    if (val == 'NULL') return '...';
+    return val;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -10,16 +73,38 @@ class StatsGrid extends StatelessWidget {
           Flexible(
             child: Row(
               children: <Widget>[
-                _buildStatCard('Total Cases', '1.81 M', Colors.orange),
-                _buildStatCard('Deaths', '105 K', Colors.red),
+                _buildStatCard(
+                    'Total Cases',
+                    show(widget.tabind == 0
+                        ? total_case
+                        : widget.tabind == 1 ? today_case : yesterday_case),
+                    Colors.orange),
+                _buildStatCard(
+                    'Deaths',
+                    show(widget.tabind == 0
+                        ? total_death
+                        : widget.tabind == 1 ? today_death : yesterday_death),
+                    Colors.red),
               ],
             ),
           ),
           Flexible(
             child: Row(
               children: <Widget>[
-                _buildStatCard('Recovered', '391 K', Colors.green),
-                _buildStatCard('Active', '1.31 M', Colors.lightBlue),
+                _buildStatCard(
+                    'Recovered',
+                    show(widget.tabind == 0
+                        ? total_recovered
+                        : widget.tabind == 1
+                            ? today_recovered
+                            : yesterday_recovered),
+                    Colors.green),
+                _buildStatCard(
+                    'Active',
+                    show(widget.tabind == 0
+                        ? total_active
+                        : widget.tabind == 1 ? today_active : yesterday_active),
+                    Colors.lightBlue),
                 _buildStatCard('Critical', 'N/A', Colors.purple),
               ],
             ),

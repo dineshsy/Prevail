@@ -6,12 +6,39 @@ import 'package:flutter_covid_dashboard_ui/data/data.dart';
 import 'package:flutter_covid_dashboard_ui/widgets/statewise_covid_bar_chart.dart';
 import 'package:flutter_covid_dashboard_ui/widgets/widgets.dart';
 
+import 'package:http/http.dart' as http;
+import 'dart:convert';
+
 class StatsScreen extends StatefulWidget {
   @override
   _StatsScreenState createState() => _StatsScreenState();
 }
 
 class _StatsScreenState extends State<StatsScreen> {
+  final String apiUrl = "https://api.covid19india.org/data.json";
+
+  List lis;
+  var tabIndex = 0;
+  static Future<List<dynamic>> fetchUsers(url) async {
+    var result = await http.get(url);
+    return json.decode(result.body)['cases_time_series'];
+  }
+
+  void fetchingdata() async {
+    var list = await fetchUsers(apiUrl);
+    setState(() {
+      lis = list;
+    });
+    // print(lis);
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    fetchingdata();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -26,7 +53,9 @@ class _StatsScreenState extends State<StatsScreen> {
           SliverPadding(
             padding: const EdgeInsets.symmetric(horizontal: 10.0),
             sliver: SliverToBoxAdapter(
-              child: StatsGrid(),
+              child: lis == null
+                  ? CircularProgressIndicator()
+                  : StatsGrid(list: lis, tabind: tabIndex),
             ),
           ),
           SliverPadding(
@@ -103,7 +132,11 @@ class _StatsScreenState extends State<StatsScreen> {
               Text('Today'),
               Text('Yesterday'),
             ],
-            onTap: (index) {},
+            onTap: (index) {
+              setState(() {
+                tabIndex = index;
+              });
+            },
           ),
         ),
       ),
