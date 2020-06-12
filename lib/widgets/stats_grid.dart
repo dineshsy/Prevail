@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
-import 'dart:convert';
 
 class StatsGrid extends StatefulWidget {
+  StatsGrid({Key key, this.list, this.tabind}) : super(key: key);
+  List list;
+  var tabind = 0;
   @override
   _StatsGridState createState() => _StatsGridState();
 }
@@ -12,28 +13,44 @@ class _StatsGridState extends State<StatsGrid> {
   var total_death = 'NULL';
   var total_recovered = 'NULL';
   var total_active = 'NULL';
-  final String apiUrl = "https://api.covid19india.org/data.json";
+  var today_case = 'NULL';
+  var today_death = 'NULL';
+  var today_recovered = 'NULL';
+  var today_active = 'NULL';
+  var yesterday_case = 'NULL';
+  var yesterday_death = 'NULL';
+  var yesterday_recovered = 'NULL';
+  var yesterday_active = 'NULL';
 
-  List lis;
-
-  static Future<List<dynamic>> fetchUsers(url) async {
-    var result = await http.get(url);
-    return json.decode(result.body)['cases_time_series'];
-  }
-
-  void fetching() async {
-    lis = await fetchUsers(apiUrl);
-    print(lis[0]['dailyconfirmed']);
+  void fetching() {
+    print("hello");
+    print(widget.list);
     setState(() {
-      total_case = lis[lis.length - 1]['totalconfirmed'];
-      total_death = lis[lis.length - 1]['totaldeceased'];
-      total_recovered = lis[lis.length - 1]['totalrecovered'];
+      total_case = widget.list[widget.list.length - 1]['totalconfirmed'];
+      total_death = widget.list[widget.list.length - 1]['totaldeceased'];
+      total_recovered = widget.list[widget.list.length - 1]['totalrecovered'];
       total_active = (int.parse(total_case) -
               int.parse(total_death) -
               int.parse(total_recovered))
           .toString();
+      today_case = widget.list[widget.list.length - 1]['dailyconfirmed'];
+      today_death = widget.list[widget.list.length - 1]['dailydeceased'];
+      today_recovered = widget.list[widget.list.length - 1]['dailyrecovered'];
+      today_active = (int.parse(today_case) -
+              int.parse(today_death) -
+              int.parse(today_recovered))
+          .toString();
+      yesterday_case = widget.list[widget.list.length - 2]['dailyconfirmed'];
+      yesterday_death = widget.list[widget.list.length - 2]['dailydeceased'];
+      yesterday_recovered =
+          widget.list[widget.list.length - 2]['dailyrecovered'];
+      yesterday_active = (int.parse(yesterday_case) -
+              int.parse(yesterday_death) -
+              int.parse(yesterday_recovered))
+          .toString();
     });
-    print(lis[lis.length - 1]);
+    print(widget.list[widget.list.length - 2]);
+    print(widget.list[widget.list.length - 1]);
   }
 
   @override
@@ -56,8 +73,18 @@ class _StatsGridState extends State<StatsGrid> {
           Flexible(
             child: Row(
               children: <Widget>[
-                _buildStatCard('Total Cases', show(total_case), Colors.orange),
-                _buildStatCard('Deaths', show(total_death), Colors.red),
+                _buildStatCard(
+                    'Total Cases',
+                    show(widget.tabind == 0
+                        ? total_case
+                        : widget.tabind == 1 ? today_case : yesterday_case),
+                    Colors.orange),
+                _buildStatCard(
+                    'Deaths',
+                    show(widget.tabind == 0
+                        ? total_death
+                        : widget.tabind == 1 ? today_death : yesterday_death),
+                    Colors.red),
               ],
             ),
           ),
@@ -65,8 +92,19 @@ class _StatsGridState extends State<StatsGrid> {
             child: Row(
               children: <Widget>[
                 _buildStatCard(
-                    'Recovered', show(total_recovered), Colors.green),
-                _buildStatCard('Active', show(total_active), Colors.lightBlue),
+                    'Recovered',
+                    show(widget.tabind == 0
+                        ? total_recovered
+                        : widget.tabind == 1
+                            ? today_recovered
+                            : yesterday_recovered),
+                    Colors.green),
+                _buildStatCard(
+                    'Active',
+                    show(widget.tabind == 0
+                        ? total_active
+                        : widget.tabind == 1 ? today_active : yesterday_active),
+                    Colors.lightBlue),
                 _buildStatCard('Critical', 'N/A', Colors.purple),
               ],
             ),
