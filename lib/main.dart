@@ -12,7 +12,7 @@ Future<void> main() async {
   bool isAuthenticated = false;
   final FirebaseAuth _auth = FirebaseAuth.instance;
   FirebaseUser user;
-  if (auth == null || auth == true) {
+  if (auth == true) {
     isAuthenticated = true;
     user = await _auth.currentUser();
     print(user.email);
