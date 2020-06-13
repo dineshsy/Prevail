@@ -9,18 +9,18 @@ class StatsGrid extends StatefulWidget {
 }
 
 class _StatsGridState extends State<StatsGrid> {
-  var total_case = 'NULL';
-  var total_death = 'NULL';
-  var total_recovered = 'NULL';
-  var total_active = 'NULL';
-  var today_case = 'NULL';
-  var today_death = 'NULL';
-  var today_recovered = 'NULL';
-  var today_active = 'NULL';
-  var yesterday_case = 'NULL';
-  var yesterday_death = 'NULL';
-  var yesterday_recovered = 'NULL';
-  var yesterday_active = 'NULL';
+  var total_case = null;
+  var total_death = null;
+  var total_recovered = null;
+  var total_active = null;
+  var today_case = null;
+  var today_death = null;
+  var today_recovered = null;
+  var today_active = null;
+  var yesterday_case = null;
+  var yesterday_death = null;
+  var yesterday_recovered = null;
+  var yesterday_active = null;
 
   void fetching() {
     print("hello");
@@ -60,7 +60,7 @@ class _StatsGridState extends State<StatsGrid> {
   }
 
   String show(val) {
-    if (val == 'NULL') return '...';
+    if (val == null) return '...';
     return val;
   }
 
