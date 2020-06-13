@@ -45,7 +45,7 @@ class _GetHelpState extends State<GetHelp> {
         helpType: "from dropdown",
         userAddress: address,
         userName: widget.user.displayName,
-        userPhone: widget.user.phoneNumber);
+        userPhone: "from textfield");
     getHelpModal.save();
   }
 
