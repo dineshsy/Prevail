@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "979599957549",
+    "firebase_url": "https://aicte-covid-19.firebaseio.com",
+    "project_id": "aicte-covid-19",
+    "storage_bucket": "aicte-covid-19.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:979599957549:android:24d3ce4125e633a418e2a4",
+        "android_client_info": {
+          "package_name": "com.example.acite_covid19"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "979599957549-qfi2bij0firt2ba86albh0bmslg3uno6.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.acite_covid19",
+            "certificate_hash": "21bbca64a878683e72b7bea55be9dcc9cff860d3"
+          }
+        },
+        {
+          "client_id": "979599957549-ap1838ticl6brlgi619c3lij6ksil21d.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBn8EpJRS6j2NcDxzOUDWPnykI-XTm_2f4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "979599957549-ap1838ticl6brlgi619c3lij6ksil21d.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

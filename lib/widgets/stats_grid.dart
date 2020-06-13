@@ -23,8 +23,6 @@ class _StatsGridState extends State<StatsGrid> {
   var yesterday_active = 'NULL';
 
   void fetching() {
-    print("hello");
-    print(widget.list);
     setState(() {
       total_case = widget.list[widget.list.length - 1]['totalconfirmed'];
       total_death = widget.list[widget.list.length - 1]['totaldeceased'];
