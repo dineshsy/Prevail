@@ -63,9 +63,12 @@ class _StateWiseCovidBarState extends State<StateWiseCovidBar> {
       if(element['id']=='IN-RJ')
       {
         data['IN-RJ']=element['confirmed'].toDouble();
-      }                   });
+      }               
+    });
     print(data);
-    data.forEach((k, v) => listData.add(v/10000));
+    setState(() {
+      data.forEach((k, v) => listData.add(v/8000));
+    });
     print(listData);
   }
 
@@ -96,7 +99,9 @@ class _StateWiseCovidBarState extends State<StateWiseCovidBar> {
           Container(
             width: MediaQuery.of(context).size.width * 0.85,
             height: MediaQuery.of(context).size.height * 0.35,
-            child: BarChart(
+            child: listData.length == 0
+                  ? CircularProgressIndicator()
+                  : BarChart(
               BarChartData(
                 alignment: BarChartAlignment.spaceAround,
                 maxY: 16.0,
