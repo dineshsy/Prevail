@@ -3,6 +3,8 @@ import 'package:flutter_covid_dashboard_ui/config/palette.dart';
 import 'package:flutter_covid_dashboard_ui/config/styles.dart';
 import 'package:flutter_covid_dashboard_ui/data/data.dart';
 import 'package:flutter_covid_dashboard_ui/widgets/widgets.dart';
+import 'package:url_launcher/url_launcher.dart';
+
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -12,6 +14,16 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   //Helpline Numbers
   List<String> phoneNumbers=['044-29510500','044-25615025','044-28414513','044-28593990'];
+
+//  Launch phone's default browser with repective URL
+  _launchURL() async {
+  const url = 'https://www.buoyhealth.com/symptom-checker/';
+  if (await canLaunch(url)) {
+    await launch(url);
+  } else {
+    throw 'Could not launch $url';
+  }
+}
 
   @override
   Widget build(BuildContext context) {
@@ -101,6 +113,26 @@ class _HomeScreenState extends State<HomeScreen> {
                         style: Styles.buttonTextStyle,
                       ),
                       textColor: Colors.white,
+                    ),
+                    FlatButton.icon(
+                      padding: const EdgeInsets.symmetric(
+                        vertical: 10.0,
+                        horizontal: 20.0,
+                      ),
+                      onPressed: _launchURL,
+                      color: Colors.blue,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(30.0),
+                      ),
+                      icon: const Icon(
+                        Icons.chat,
+                        color: Colors.white,
+                      ),
+                      label: Text(
+                        'Consult Tele Doctor',
+                        style: Styles.buttonTextStyle,
+                      ),
+                      textColor: Colors.white,
                     )
                   ],
                 ),
@@ -116,7 +148,7 @@ class _HomeScreenState extends State<HomeScreen> {
   void _openPhoneNumberList(context){
     showModalBottomSheet(context: context, builder: (BuildContext bc){
       return Container(
-        height:MediaQuery.of(context).size.height*.40,
+        // height:MediaQuery.of(context).size.height*.50,
         child:Padding(
           padding: const EdgeInsets.all(10.0),
           child: Column(
