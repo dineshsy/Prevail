@@ -121,7 +121,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     FlatButton.icon(
                       padding: const EdgeInsets.symmetric(
                         vertical: 10.0,
-                        horizontal: 20.0,
+                        horizontal: 10.0,
                       ),
                       onPressed: _launchURL,
                       color: Colors.blue,
@@ -133,7 +133,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         color: Colors.white,
                       ),
                       label: Text(
-                        'Consult Tele Doctor',
+                        'Tele Doctor',
                         style: Styles.buttonTextStyle,
                       ),
                       textColor: Colors.white,
