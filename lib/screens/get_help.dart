@@ -5,6 +5,8 @@ import 'package:flutter_covid_dashboard_ui/modal/get_help_modal.dart';
 import 'package:flutter_covid_dashboard_ui/widgets/widgets.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:geocoder/geocoder.dart';
+import 'package:intl_phone_number_input/intl_phone_number_input.dart';
+import 'package:dropdownfield/dropdownfield.dart';
 
 class GetHelp extends StatefulWidget {
   final FirebaseUser user;
@@ -14,6 +16,42 @@ class GetHelp extends StatefulWidget {
 }
 
 class _GetHelpState extends State<GetHelp> {
+  final _formKey = GlobalKey<FormState>();
+  // Map<String, dynamic> formData;
+  // List<String> cities = [
+  //   'Bangalore',
+  //   'Chennai',
+  //   'New York',
+  //   'Mumbai',
+  //   'Delhi',
+  //   'Tokyo',
+  // ];
+
+  // _ExampleFormState() {
+  //   formData = {
+  //     'City': 'Bangalore',
+  //   };
+  // }
+  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+
+  final TextEditingController controller = TextEditingController();
+  String initialCountry = 'NG';
+  PhoneNumber number = PhoneNumber(isoCode: 'NG');
+  void getPhoneNumber(String phoneNumber) async {
+    PhoneNumber number =
+        await PhoneNumber.getRegionInfoFromPhoneNumber(phoneNumber, 'US');
+
+    setState(() {
+      this.number = number;
+    });
+  }
+
+  @override
+  void dispose() {
+    controller?.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -22,6 +60,79 @@ class _GetHelpState extends State<GetHelp> {
         physics: ClampingScrollPhysics(),
         slivers: <Widget>[
           _buildHeader(),
+
+          // SliverPadding(
+          //     padding: const EdgeInsets.all(20.0),
+          //     sliver: SliverToBoxAdapter(
+          //         child: Container(
+          //       color: Colors.white,
+          //       constraints: BoxConstraints.expand(),
+          //       child: Form(
+          //           key: _formKey,
+          //           autovalidate: false,
+          //           child: SingleChildScrollView(
+          //               child: Column(
+          //             children: <Widget>[
+          //               Divider(
+          //                   height: 10.0,
+          //                   color: Theme.of(context).primaryColor),
+          //               DropDownField(
+          //                   value: formData['City'],
+          //                   icon: Icon(Icons.location_city),
+          //                   required: true,
+          //                   hintText: 'Choose a city',
+          //                   labelText: 'City *',
+          //                   items: cities,
+          //                   strict: false,
+          //                   setter: (dynamic newValue) {
+          //                     formData['City'] = newValue;
+          //                   }),
+          //               Divider(
+          //                   height: 10.0,
+          //                   color: Theme.of(context).primaryColor),
+          //             ],
+          //           ))),
+          //     ))),
+          SliverPadding(
+              padding: const EdgeInsets.all(20.0),
+              sliver: SliverToBoxAdapter(
+                child: TextField(
+                  maxLines: 8,
+                  decoration: InputDecoration.collapsed(
+                      hintText: "Enter your text here"),
+                ),
+              )),
+          //         SliverPadding(
+          // padding: const EdgeInsets.all(20.0),
+          //   sliver: SliverToBoxAdapter(
+          //     child: InternationalPhoneNumberInput(
+          //           onInputChanged: (PhoneNumber number) {
+          //             print(number.phoneNumber);
+          //           },
+          //           onInputValidated: (bool value) {
+          //             print(value);
+          //           },
+          //           ignoreBlank: false,
+          //           autoValidate: false,
+          //           selectorTextStyle: TextStyle(color: Colors.black),
+          //           initialValue: number,
+          //           textFieldController: controller,
+          //           inputBorder: OutlineInputBorder(),
+          //         ),
+          //         RaisedButton(
+          //           onPressed: () {
+          //             formKey.currentState.validate();
+          //           },
+          //           child: Text('Validate'),
+          //         ),
+          //         RaisedButton(
+          //           onPressed: () {
+          //             getPhoneNumber('+15417543010');
+          //           },
+          //           child: Text('Update'),
+          //         ),
+          //   ),
+          // )
         ],
       ),
     );
