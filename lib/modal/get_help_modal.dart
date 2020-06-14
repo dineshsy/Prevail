@@ -19,7 +19,7 @@ class GetHelpModal {
   save() {
     // push this data to web service
     http.post(
-      'https://us-central1-aicte-c2c3a.cloudfunctions.net/sendMail?dest=$userMail&name=$userName&phone=$userPhone&helpDescription=$helpDescription&helpType=$helpType&address=$userAddress',
+      'https://us-central1-aicte-cbeb5.cloudfunctions.net/sendMail?dest=$userMail&name=$userName&phone=$userPhone&helpDescription=$helpDescription&helpType=$helpType&address=$userAddress',
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
       },

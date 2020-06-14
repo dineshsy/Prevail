@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_covid_dashboard_ui/config/palette.dart';
+import 'package:flutter_covid_dashboard_ui/config/styles.dart';
 import 'package:flutter_covid_dashboard_ui/screens/bottom_nav_screen.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -46,20 +48,65 @@ class _AuthenticationState extends State<Authentication> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          new Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: FlatButton(
-              child: Text("Google-Sign-in"),
-              onPressed: () => _gSignin(),
-              color: Colors.red,
+      backgroundColor: Palette.primaryColor,
+      body: SafeArea(
+        child: CustomScrollView(
+          physics: ClampingScrollPhysics(),
+          slivers: <Widget>[
+            SliverPadding(
+              padding: const EdgeInsets.all(8.0),
+              sliver: SliverToBoxAdapter(
+                child: Center(
+                  child: Text(
+                    'PREVAIL',
+                    style: const TextStyle(
+                        color: Colors.white,
+                        fontSize: 25.0,
+                        fontWeight: FontWeight.bold,
+                        letterSpacing: 7),
+                  ),
+                ),
+              ),
             ),
-          ),
-        ],
+            SliverPadding(
+              padding: const EdgeInsets.all(35.0),
+              sliver: SliverToBoxAdapter(
+                child: Container(
+                  width: MediaQuery.of(context).size.width * 1,
+                  height: MediaQuery.of(context).size.height * 0.65,
+                  decoration: BoxDecoration(
+                      image: DecorationImage(
+                          image: AssetImage('assets/images/main.jpg'))),
+                ),
+              ),
+            ),
+            new SliverPadding(
+                padding: const EdgeInsets.all(8.0),
+                sliver: SliverToBoxAdapter(
+                  child: FlatButton.icon(
+                    padding: const EdgeInsets.symmetric(
+                      vertical: 10.0,
+                      horizontal: 20.0,
+                    ),
+                    onPressed: () => _gSignin(),
+                    color: Colors.blue,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(30.0),
+                    ),
+                    icon: const Icon(
+                      Icons.input,
+                      color: Colors.white,
+                    ),
+                    label: Text(
+                      'Continue with Google',
+                      style: Styles.buttonTextStyle,
+                    ),
+                    textColor: Colors.white,
+                  ),
+                )),
+          ],
+        ),
       ),
-    ));
+    );
   }
 }
