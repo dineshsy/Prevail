@@ -26,11 +26,6 @@ class _GetHelpState extends State<GetHelp> {
   //   'Delhi',
   //   'Tokyo',
   // ];
-  // List<String> countries = [
-  //   'INDIA',
-  //   'USA',
-  //   'JAPAN',
-  // ];
 
   // _ExampleFormState() {
   //   formData = {
