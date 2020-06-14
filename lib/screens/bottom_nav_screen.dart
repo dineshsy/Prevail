@@ -1,10 +1,11 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_covid_dashboard_ui/config/palette.dart';
 import 'package:flutter_covid_dashboard_ui/config/styles.dart';
 import 'package:flutter_covid_dashboard_ui/screens/screens.dart';
 import 'package:flutter_covid_dashboard_ui/widgets/custom_app_bar.dart';
-import 'package:flutter_covid_dashboard_ui/screens/volunterr.dart';
+import 'package:flutter_covid_dashboard_ui/screens/volunteer.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class BottomNavScreen extends StatefulWidget {
@@ -27,7 +28,9 @@ class _BottomNavScreenState extends State<BottomNavScreen> {
       HomeScreen(),
       StatsScreen(),
       GetHelp(user: widget.user),
-      Volunteer()
+      Volunteer(
+        user: widget.user,
+      )
     ];
   }
 

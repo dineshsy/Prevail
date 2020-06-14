@@ -9,7 +9,7 @@ class NewVolunteer {
   NewVolunteer({this.email, this.name});
 
   save() {
-    _firebaseDatabase.reference().child("healthReport").push().set({
+    _firebaseDatabase.reference().child("volunteers").push().set({
       "name": name,
       "email": email,
     });
