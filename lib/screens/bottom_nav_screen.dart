@@ -4,6 +4,7 @@ import 'package:flutter_covid_dashboard_ui/config/palette.dart';
 import 'package:flutter_covid_dashboard_ui/config/styles.dart';
 import 'package:flutter_covid_dashboard_ui/screens/screens.dart';
 import 'package:flutter_covid_dashboard_ui/widgets/custom_app_bar.dart';
+import 'package:flutter_covid_dashboard_ui/screens/volunterr.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class BottomNavScreen extends StatefulWidget {
@@ -26,7 +27,7 @@ class _BottomNavScreenState extends State<BottomNavScreen> {
       HomeScreen(),
       StatsScreen(),
       GetHelp(user: widget.user),
-      Scaffold()
+      Volunteer()
     ];
   }
 
@@ -36,76 +37,93 @@ class _BottomNavScreenState extends State<BottomNavScreen> {
       appBar: CustomAppBar(),
       body: _screens[_currentIndex],
       drawer: Drawer(
-        child: ListView(children: <Widget>[
-          DrawerHeader(
-            decoration: BoxDecoration(color: Palette.primaryColor),
-            child: Column(
-              children: <Widget>[
-                Container(height: 100, width: 100,
-          decoration: BoxDecoration(
-                image: DecorationImage(image: NetworkImage(widget.user.photoUrl)),
-                borderRadius: BorderRadius.circular(200)
-          ),),
-          Padding(
-            padding: const EdgeInsets.only(top: 10,),
-            child: Text(widget.user.displayName,style: TextStyle(color: Colors.white, fontSize: 20),),
-          )
-              ],
-            )),
-                ListTile(title: Center(child: Text(widget.user.email))),
+        child: ListView(
+          children: <Widget>[
+            DrawerHeader(
+                decoration: BoxDecoration(color: Palette.primaryColor),
+                child: Column(
+                  children: <Widget>[
+                    Container(
+                      height: 100,
+                      width: 100,
+                      decoration: BoxDecoration(
+                          image: DecorationImage(
+                              image: NetworkImage(widget.user.photoUrl)),
+                          borderRadius: BorderRadius.circular(200)),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(
+                        top: 10,
+                      ),
+                      child: Text(
+                        widget.user.displayName,
+                        style: TextStyle(color: Colors.white, fontSize: 20),
+                      ),
+                    )
+                  ],
+                )),
+            ListTile(title: Center(child: Text(widget.user.email))),
             Container(
-              height: MediaQuery.of(context).size.height/2,
-              child: Column(
-                mainAxisSize: MainAxisSize.max,
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: <Widget>[
-            ListTile(title: Center(child: FlatButton.icon(
-                  padding: const EdgeInsets.symmetric(
-                    vertical: 10.0,
-                    horizontal: 20.0,
-                  ),
-                  onPressed: () {
-                      _launchURL();
-                  },
-                  color: Colors.blue,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(30.0),
-                  ),
-                  icon: const Icon(
-                    Icons.assignment,
-                    color: Colors.white,
-                  ),
-                  label: Text(
-                    'Github',
-                    style: Styles.buttonTextStyle,
-                  ),
-                  textColor: Colors.white,
-                ),)),
-            ListTile(title: Center(child: FlatButton.icon(
-                  padding: const EdgeInsets.symmetric(
-                    vertical: 10.0,
-                    horizontal: 20.0,
-                  ),
-                  onPressed: () {
-                    widget.logout(context); //On Pressed Event for Call Button
-                  },
-                  color: Colors.red,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(30.0),
-                  ),
-                  icon: const Icon(
-                    Icons.last_page,
-                    color: Colors.white,
-                  ),
-                  label: Text(
-                    'Logout',
-                    style: Styles.buttonTextStyle,
-                  ),
-                  textColor: Colors.white,
-                ),))
-              ],
-            )),
-        ],),
+                height: MediaQuery.of(context).size.height / 2,
+                child: Column(
+                  mainAxisSize: MainAxisSize.max,
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: <Widget>[
+                    ListTile(
+                        title: Center(
+                      child: FlatButton.icon(
+                        padding: const EdgeInsets.symmetric(
+                          vertical: 10.0,
+                          horizontal: 20.0,
+                        ),
+                        onPressed: () {
+                          _launchURL();
+                        },
+                        color: Colors.blue,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(30.0),
+                        ),
+                        icon: const Icon(
+                          Icons.assignment,
+                          color: Colors.white,
+                        ),
+                        label: Text(
+                          'Github',
+                          style: Styles.buttonTextStyle,
+                        ),
+                        textColor: Colors.white,
+                      ),
+                    )),
+                    ListTile(
+                        title: Center(
+                      child: FlatButton.icon(
+                        padding: const EdgeInsets.symmetric(
+                          vertical: 10.0,
+                          horizontal: 20.0,
+                        ),
+                        onPressed: () {
+                          widget.logout(
+                              context); //On Pressed Event for Call Button
+                        },
+                        color: Colors.red,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(30.0),
+                        ),
+                        icon: const Icon(
+                          Icons.last_page,
+                          color: Colors.white,
+                        ),
+                        label: Text(
+                          'Logout',
+                          style: Styles.buttonTextStyle,
+                        ),
+                        textColor: Colors.white,
+                      ),
+                    ))
+                  ],
+                )),
+          ],
+        ),
       ),
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _currentIndex,
@@ -145,12 +163,13 @@ class _BottomNavScreenState extends State<BottomNavScreen> {
       ),
     );
   }
-    _launchURL() async {
-  const url = 'https://www.github.com/dineshsy/AICTE';
-  if (await canLaunch(url)) {
-    await launch(url);
-  } else {
-    throw 'Could not launch $url';
+
+  _launchURL() async {
+    const url = 'https://www.github.com/dineshsy/AICTE';
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
   }
-}
 }

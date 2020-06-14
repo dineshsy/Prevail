@@ -35,6 +35,7 @@ dependencies:
   geocoder: ^0.2.1
   dropdownfield: ^1.0.3
   intl_phone_number_input: ^0.4.5
+  email_validator: ^1.0.4
 
 dev_dependencies:
   flutter_test:
