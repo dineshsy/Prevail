@@ -1,7 +1,10 @@
+import 'package:http/http.dart' as http;
+
 class GetHelpModal {
   String userName;
   String userPhone;
   String userAddress;
+  String userMail;
   String helpType;
   String helpDescription;
 
@@ -10,10 +13,16 @@ class GetHelpModal {
       this.userPhone,
       this.userAddress,
       this.helpType,
-      this.helpDescription});
+      this.helpDescription,
+      this.userMail});
 
   save() {
     // push this data to web service
-    print("$userName $userPhone $userAddress $helpType $helpDescription");
+    http.post(
+      'https://us-central1-aicte-c2c3a.cloudfunctions.net/sendMail?dest=$userMail&name=$userName&phone=$userPhone&helpDescription=$helpDescription&helpType=$helpType&address=$userAddress',
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+    );
   }
 }

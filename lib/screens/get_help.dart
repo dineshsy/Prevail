@@ -87,6 +87,7 @@ class _GetHelpState extends State<GetHelp> {
                                 },
                                 controller: controllerDescription,
                                 maxLines: 4,
+                                style: TextStyle(color: Colors.white),
                                 decoration: InputDecoration(
                                     contentPadding: EdgeInsets.all(15),
                                     floatingLabelBehavior:
@@ -107,6 +108,7 @@ class _GetHelpState extends State<GetHelp> {
                           Padding(
                             padding: const EdgeInsets.all(20.0),
                             child: TextFormField(
+                              style: TextStyle(color: Colors.white),
                               validator: (value) {
                                 if (value.isEmpty) {
                                   return 'Please provide phone number';
@@ -188,8 +190,17 @@ class _GetHelpState extends State<GetHelp> {
           helpType: dropdownText,
           userAddress: address,
           userName: widget.user.displayName,
-          userPhone: controllerPhone.text);
+          userPhone: controllerPhone.text,
+          userMail: widget.user.email);
       getHelpModal.save();
+      final snackBar = SnackBar(
+          content: Text(
+              'Your request has been submitted, You will receive an confirmation mail. '));
+
+// Find the Scaffold in the widget tree and use it to show a SnackBar.
+      Scaffold.of(context).showSnackBar(snackBar);
+      controllerDescription.clear();
+      controllerPhone.clear();
     }
   }
 
