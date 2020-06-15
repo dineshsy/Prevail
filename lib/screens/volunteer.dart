@@ -16,29 +16,12 @@ class _VolunteerState extends State<Volunteer> {
   FirebaseDatabase database = new FirebaseDatabase();
   bool isVolunteer = false;
   bool disableButton = false;
+  bool isLoading = false;
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    database.reference().child('/volunteers/').once().then((value) {
-      Map<dynamic, dynamic> users = value.value;
-      if (value.value == null) {
-        return null;
-      }
-      users.forEach((key, value) {
-        if (value['email'] == widget.user.email) {
-          setState(() {
-            isVolunteer = true;
-            disableButton = true;
-            final snackBar =
-                SnackBar(content: Text('You are already an volunteer'));
-
-            Scaffold.of(this.context).showSnackBar(snackBar);
-          });
-        }
-      });
-    });
   }
 
   @override
@@ -75,14 +58,14 @@ class _VolunteerState extends State<Volunteer> {
           SliverPadding(
             padding: const EdgeInsets.all(40.0),
             sliver: SliverToBoxAdapter(
-                child: FlatButton.icon(
+                child: FlatButton(
               disabledColor: Colors.blueGrey,
               disabledTextColor: Colors.grey,
               padding: const EdgeInsets.symmetric(
                 vertical: 10.0,
                 horizontal: 20.0,
               ),
-              onPressed: disableButton
+              onPressed: disableButton || isLoading
                   ? null
                   : () {
                       showAlertDialog(context);
@@ -91,13 +74,28 @@ class _VolunteerState extends State<Volunteer> {
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(30.0),
               ),
-              icon: const Icon(
-                Icons.flag,
-                color: Colors.white,
-              ),
-              label: Text(
-                'Join Now',
-                style: Styles.buttonTextStyle,
+              child: Row(
+                mainAxisSize: MainAxisSize.max,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  isLoading
+                      ? Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Container(
+                            height: 10,
+                            width: 10,
+                            child: CircularProgressIndicator(),
+                          ),
+                        )
+                      : Icon(
+                          Icons.flag,
+                          color: Colors.white,
+                        ),
+                  Text(
+                    'Join Now',
+                    style: Styles.buttonTextStyle,
+                  ),
+                ],
               ),
               textColor: Colors.white,
             )),
@@ -107,7 +105,33 @@ class _VolunteerState extends State<Volunteer> {
     );
   }
 
-  showAlertDialog(BuildContext context) {
+  showAlertDialog(BuildContext context) async {
+    this.setState(() {
+      isLoading = true;
+    });
+    await database.reference().child('/volunteers/').once().then((value) {
+      Map<dynamic, dynamic> users = value.value;
+      if (value.value == null) {
+        return null;
+      }
+      for (MapEntry<dynamic, dynamic> user in users.entries) {
+        if (user.value['email'] == widget.user.email) {
+          setState(() {
+            isVolunteer = true;
+            disableButton = true;
+            isLoading = false;
+          });
+          final snackBar =
+              SnackBar(content: Text('You are already an volunteer'));
+
+          Scaffold.of(this.context).showSnackBar(snackBar);
+          break;
+        }
+      }
+    });
+    if (isVolunteer) {
+      return;
+    }
     // set up the buttons
     Widget cancelButton = FlatButton(
       child: Text("Cancel"),

@@ -25,12 +25,11 @@ class _StatsScreenState extends State<StatsScreen> {
 
   void fetchingdata() async {
     var list = await fetchUsers(apiUrl);
-      if(this.mounted){
-
-    setState(() {
-      lis = list;
-    });
-      }
+    if (this.mounted) {
+      setState(() {
+        lis = list;
+      });
+    }
     // print(lis);
   }
 
@@ -55,10 +54,11 @@ class _StatsScreenState extends State<StatsScreen> {
             padding: const EdgeInsets.symmetric(horizontal: 10.0),
             sliver: SliverToBoxAdapter(
               child: lis == null
-                  ? Center(child: Container(
-                    width: 50,
-                    height: 50,
-                    child: CircularProgressIndicator()))
+                  ? Center(
+                      child: Container(
+                          width: 50,
+                          height: 50,
+                          child: CircularProgressIndicator()))
                   : StatsGrid(list: lis, tabind: tabIndex),
             ),
           ),
@@ -122,25 +122,28 @@ class _StatsScreenState extends State<StatsScreen> {
 
   SliverPadding _buildStatsTabBar() {
     return SliverPadding(
-      padding: const EdgeInsets.all(20.0),
+      padding: const EdgeInsets.only(top: 20, bottom: 20),
       sliver: SliverToBoxAdapter(
         child: DefaultTabController(
           length: 3,
-          child: TabBar(
-            indicatorColor: Colors.transparent,
-            labelStyle: Styles.tabTextStyle,
-            labelColor: Colors.white,
-            unselectedLabelColor: Colors.white60,
-            tabs: <Widget>[
-              Text('Total'),
-              Text('Today'),
-              Text('Yesterday'),
-            ],
-            onTap: (index) {
-              setState(() {
-                tabIndex = index;
-              });
-            },
+          child: Center(
+            child: TabBar(
+              isScrollable: true,
+              indicatorColor: Colors.transparent,
+              labelStyle: Styles.tabTextStyle,
+              labelColor: Colors.white,
+              unselectedLabelColor: Colors.white60,
+              tabs: <Widget>[
+                Text('Total'),
+                Text('Today'),
+                Text('Yesterday'),
+              ],
+              onTap: (index) {
+                setState(() {
+                  tabIndex = index;
+                });
+              },
+            ),
           ),
         ),
       ),
