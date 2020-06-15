@@ -1,49 +1,64 @@
 {
-    "project_info": {
-        "project_number": "533205947411",
-        "firebase_url": "https://aicte-cbeb5.firebaseio.com",
-        "project_id": "aicte-cbeb5",
-        "storage_bucket": "aicte-cbeb5.appspot.com"
-    },
-    "client": [{
-        "client_info": {
-            "mobilesdk_app_id": "1:533205947411:android:6f9b6ad94b7c2689f0dbe6",
-            "android_client_info": {
-                "package_name": "com.example.acite_covid19"
-            }
-        },
-        "oauth_client": [{
-                "client_id": "533205947411-be0juul3dsqivdtq40p53hp6cq9lo2vj.apps.googleusercontent.com",
-                "client_type": 1,
-                "android_info": {
-                    "package_name": "com.example.acite_covid19",
-                    "certificate_hash": "21bbca64a878683e72b7bea55be9dcc9cff860d3"
-                }
-            },
-            {
-                "client_id": "533205947411-13f9gcj95il08ih7sep64a1i6r4gor8b.apps.googleusercontent.com",
-                "client_type": 1,
-                "android_info": {
-                    "package_name": "com.example.acite_covid19",
-                    "certificate_hash": "a363f1d36eb5664ba175a94c9341f8cc5b94aeb9"
-                }
-            },
-            {
-                "client_id": "533205947411-li46qt3isb17hlofljelt7anto4plgsn.apps.googleusercontent.com",
-                "client_type": 3
-            }
-        ],
-        "api_key": [{
-            "current_key": "Your_API_Key"
-        }],
-        "services": {
-            "appinvite_service": {
-                "other_platform_oauth_client": [{
-                    "client_id": "533205947411-li46qt3isb17hlofljelt7anto4plgsn.apps.googleusercontent.com",
-                    "client_type": 3
-                }]
-            }
+  "project_info": {
+    "project_number": "533205947411",
+    "firebase_url": "https://aicte-cbeb5.firebaseio.com",
+    "project_id": "aicte-cbeb5",
+    "storage_bucket": "aicte-cbeb5.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:533205947411:android:6f9b6ad94b7c2689f0dbe6",
+        "android_client_info": {
+          "package_name": "com.example.acite_covid19"
         }
-    }],
-    "configuration_version": "1"
+      },
+      "oauth_client": [
+        {
+          "client_id": "533205947411-2hrv9jje8os18e53ev3fmvvjpae8646j.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.acite_covid19",
+            "certificate_hash": "3888f969d4e7e9ed8b02c16dd33828190f7a3b2c"
+          }
+        },
+        {
+          "client_id": "533205947411-be0juul3dsqivdtq40p53hp6cq9lo2vj.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.acite_covid19",
+            "certificate_hash": "21bbca64a878683e72b7bea55be9dcc9cff860d3"
+          }
+        },
+        {
+          "client_id": "533205947411-13f9gcj95il08ih7sep64a1i6r4gor8b.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.acite_covid19",
+            "certificate_hash": "a363f1d36eb5664ba175a94c9341f8cc5b94aeb9"
+          }
+        },
+        {
+          "client_id": "533205947411-li46qt3isb17hlofljelt7anto4plgsn.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "TYPE API KEY HERE NOW"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "533205947411-li46qt3isb17hlofljelt7anto4plgsn.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
 }

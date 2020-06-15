@@ -1,4 +1,4 @@
-# Prevail
+About this App : PREVAIL
 
  This is an App to serve the people in need during the current crisis(COVID-19).It is a Community consisting of a group of people 
 who are in need of something and a group of people who are willing to volunteer (We call them 'Guardians') to help those who are in need.
@@ -15,11 +15,4 @@ can help those people either by calling them by the Mobile number and Contacting
 registering as a volunteer, Thanks to the Google Signin, this process has been made so simple by just giving a single tap on Join now button, 
 you will receive an automatic mail for the confirmation. And you are officially added as part of the community, any request from a person in need 
 will be sent as mail to you and you get to be the Guardian of their Life !
-
-
-## APIs
-
-### Summary Of Covid-19 Situation
-
-https://documenter.getpostman.com/view/10724784/SzYXXKmA?version=latest#b686c016-77c5-4db7-839f-6565ab812ae5
 
