@@ -75,7 +75,7 @@ class _StateWiseCovidBarState extends State<StateWiseCovidBar> {
   @override
   Widget build(BuildContext context) {
      return Container(
-      height: 350.0,
+      height: 400.0,
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.only(
