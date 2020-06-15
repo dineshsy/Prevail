@@ -72,31 +72,31 @@ class _BottomNavScreenState extends State<BottomNavScreen> {
                   mainAxisSize: MainAxisSize.max,
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: <Widget>[
-                    ListTile(
-                        title: Center(
-                      child: FlatButton.icon(
-                        padding: const EdgeInsets.symmetric(
-                          vertical: 10.0,
-                          horizontal: 20.0,
-                        ),
-                        onPressed: () {
-                          _launchURL();
-                        },
-                        color: Colors.blue,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(30.0),
-                        ),
-                        icon: const Icon(
-                          Icons.assignment,
-                          color: Colors.white,
-                        ),
-                        label: Text(
-                          'Github',
-                          style: Styles.buttonTextStyle,
-                        ),
-                        textColor: Colors.white,
-                      ),
-                    )),
+                    // ListTile(
+                    //     title: Center(
+                    //   child: FlatButton.icon(
+                    //     padding: const EdgeInsets.symmetric(
+                    //       vertical: 10.0,
+                    //       horizontal: 20.0,
+                    //     ),
+                    //     onPressed: () {
+                    //       _launchURL();
+                    //     },
+                    //     color: Colors.blue,
+                    //     shape: RoundedRectangleBorder(
+                    //       borderRadius: BorderRadius.circular(30.0),
+                    //     ),
+                    //     icon: const Icon(
+                    //       Icons.assignment,
+                    //       color: Colors.white,
+                    //     ),
+                    //     label: Text(
+                    //       'Github',
+                    //       style: Styles.buttonTextStyle,
+                    //     ),
+                    //     textColor: Colors.white,
+                    //   ),
+                    // )),
                     ListTile(
                         title: Center(
                       child: FlatButton.icon(
@@ -172,12 +172,12 @@ class _BottomNavScreenState extends State<BottomNavScreen> {
     );
   }
 
-  _launchURL() async {
-    const url = 'https://www.github.com/dineshsy/AICTE';
-    if (await canLaunch(url)) {
-      await launch(url);
-    } else {
-      throw 'Could not launch $url';
-    }
-  }
+//   _launchURL() async {
+//     const url = 'https://www.github.com/dineshsy/AICTE';
+//     if (await canLaunch(url)) {
+//       await launch(url);
+//     } else {
+//       throw 'Could not launch $url';
+//     }
+//   }
 }

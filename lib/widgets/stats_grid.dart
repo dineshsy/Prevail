@@ -103,7 +103,7 @@ class _StatsGridState extends State<StatsGrid> {
                         ? total_active
                         : widget.tabind == 1 ? today_active : yesterday_active),
                     Colors.lightBlue),
-                _buildStatCard('Critical', 'N/A', Colors.purple),
+                //_buildStatCard('Critical', 'N/A', Colors.purple),
               ],
             ),
           ),
