@@ -3,6 +3,7 @@ import 'package:flutter_covid_dashboard_ui/config/palette.dart';
 import 'package:flutter_covid_dashboard_ui/config/styles.dart';
 import 'package:flutter_covid_dashboard_ui/data/data.dart';
 import 'package:flutter_covid_dashboard_ui/widgets/widgets.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -11,13 +12,27 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   //Helpline Numbers
-  List<String> phoneNumbers=['044-29510500','044-25615025','044-28414513','044-28593990'];
+  List<String> phoneNumbers = [
+    '044-29510500',
+    '044-25615025',
+    '044-28414513',
+    '044-28593990'
+  ];
+
+//  Launch phone's default browser with repective URL
+  _launchURL() async {
+    const url = 'https://www.buoyhealth.com/symptom-checker/';
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     final screenHeight = MediaQuery.of(context).size.height;
     return Scaffold(
-      appBar: CustomAppBar(),
       body: CustomScrollView(
         physics: ClampingScrollPhysics(),
         slivers: <Widget>[
@@ -47,12 +62,12 @@ class _HomeScreenState extends State<HomeScreen> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
                 Text(
-                  'COVID-19',
+                  'PREVAIL',
                   style: const TextStyle(
-                    color: Colors.white,
-                    fontSize: 25.0,
-                    fontWeight: FontWeight.bold,
-                  ),
+                      color: Colors.white,
+                      fontSize: 25.0,
+                      fontWeight: FontWeight.bold,
+                      letterSpacing: 7),
                 )
               ],
             ),
@@ -86,7 +101,8 @@ class _HomeScreenState extends State<HomeScreen> {
                         horizontal: 20.0,
                       ),
                       onPressed: () {
-                        _openPhoneNumberList(context);//On Pressed Event for Call Button
+                        _openPhoneNumberList(
+                            context); //On Pressed Event for Call Button
                       },
                       color: Colors.red,
                       shape: RoundedRectangleBorder(
@@ -98,6 +114,27 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                       label: Text(
                         'Call Now',
+                        style: Styles.buttonTextStyle,
+                      ),
+                      textColor: Colors.white,
+                    ),
+                    FlatButton.icon(
+                      padding: const EdgeInsets.symmetric(
+                        vertical: 10.0,
+                        horizontal: 10.0,
+
+                      ),
+                      onPressed: _launchURL,
+                      color: Colors.blue,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(30.0),
+                      ),
+                      icon: const Icon(
+                        Icons.chat,
+                        color: Colors.white,
+                      ),
+                      label: Text(
+                        'Tele Doctor',
                         style: Styles.buttonTextStyle,
                       ),
                       textColor: Colors.white,
@@ -113,46 +150,51 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   //Opening List of Phone Numbers in a Bottom Modal
-  void _openPhoneNumberList(context){
-    showModalBottomSheet(context: context, builder: (BuildContext bc){
-      return Container(
-        height:MediaQuery.of(context).size.height*.40,
-        child:Padding(
-          padding: const EdgeInsets.all(10.0),
-          child: Column(
-            children: <Widget>[
-              Row(
-                children: <Widget>[
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Text(
-                      "Tap to Call",
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 20),
+  void _openPhoneNumberList(context) {
+    showModalBottomSheet(
+        context: context,
+        builder: (BuildContext bc) {
+          return Container(
+              // height:MediaQuery.of(context).size.height*.50,
+              child: Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: Column(
+              children: <Widget>[
+                Row(
+                  children: <Widget>[
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text(
+                        "Tap to Call",
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 20),
+                      ),
                     ),
-                  ),
-                  Spacer(),
-                  IconButton(
-                  icon: Icon(Icons.cancel,color: Colors.redAccent,size:30,), 
-                  onPressed: () { Navigator.of(context).pop();
-                  },
+                    Spacer(),
+                    IconButton(
+                      icon: Icon(
+                        Icons.cancel,
+                        color: Colors.redAccent,
+                        size: 30,
+                      ),
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      },
+                    ),
+                  ],
                 ),
-                ],
-              ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                //For Each of the Numbers in List , Creading a custom widget CallModal
-                children: phoneNumbers.map((number) => CallModal(number: number)).toList(),
-              )
-            ],
-          ),
-        )
-      );
-
-    });
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  //For Each of the Numbers in List , Creading a custom widget CallModal
+                  children: phoneNumbers
+                      .map((number) => CallModal(number: number))
+                      .toList(),
+                )
+              ],
+            ),
+          ));
+        });
   }
-
 
   SliverToBoxAdapter _buildPreventionTips(double screenHeight) {
     return SliverToBoxAdapter(

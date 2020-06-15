@@ -2,7 +2,6 @@ import 'package:bubble_tab_indicator/bubble_tab_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_covid_dashboard_ui/config/palette.dart';
 import 'package:flutter_covid_dashboard_ui/config/styles.dart';
-import 'package:flutter_covid_dashboard_ui/data/data.dart';
 import 'package:flutter_covid_dashboard_ui/widgets/statewise_covid_bar_chart.dart';
 import 'package:flutter_covid_dashboard_ui/widgets/widgets.dart';
 
@@ -26,9 +25,12 @@ class _StatsScreenState extends State<StatsScreen> {
 
   void fetchingdata() async {
     var list = await fetchUsers(apiUrl);
+      if(this.mounted){
+
     setState(() {
       lis = list;
     });
+      }
     // print(lis);
   }
 
@@ -43,18 +45,20 @@ class _StatsScreenState extends State<StatsScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Palette.primaryColor,
-      appBar: CustomAppBar(),
       body: CustomScrollView(
         physics: ClampingScrollPhysics(),
         slivers: <Widget>[
           _buildHeader(),
-          _buildRegionTabBar(),
+          // _buildRegionTabBar(),
           _buildStatsTabBar(),
           SliverPadding(
             padding: const EdgeInsets.symmetric(horizontal: 10.0),
             sliver: SliverToBoxAdapter(
               child: lis == null
-                  ? CircularProgressIndicator()
+                  ? Center(child: Container(
+                    width: 50,
+                    height: 50,
+                    child: CircularProgressIndicator()))
                   : StatsGrid(list: lis, tabind: tabIndex),
             ),
           ),
@@ -74,7 +78,7 @@ class _StatsScreenState extends State<StatsScreen> {
       padding: const EdgeInsets.all(20.0),
       sliver: SliverToBoxAdapter(
         child: Text(
-          'Statistics',
+          'Statistics of India',
           style: const TextStyle(
             color: Colors.white,
             fontSize: 25.0,
