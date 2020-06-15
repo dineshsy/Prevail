@@ -172,10 +172,12 @@ class _GetHelpState extends State<GetHelp> {
   }
 
   Future<String> getLocation() async {
+
     final snackBar = SnackBar(content: Text('Turn on your GPS to Submit'));
 
 // Find the Scaffold in the widget tree and use it to show a SnackBar.
     Scaffold.of(context).showSnackBar(snackBar);
+
     Position position = await Geolocator()
         .getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
     final coordinates = new Coordinates(position.latitude, position.longitude);

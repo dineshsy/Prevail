@@ -122,6 +122,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       padding: const EdgeInsets.symmetric(
                         vertical: 10.0,
                         horizontal: 10.0,
+
                       ),
                       onPressed: _launchURL,
                       color: Colors.blue,
