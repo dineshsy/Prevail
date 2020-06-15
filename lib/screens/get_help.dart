@@ -172,7 +172,6 @@ class _GetHelpState extends State<GetHelp> {
   }
 
   Future<String> getLocation() async {
-
     final snackBar = SnackBar(content: Text('Turn on your GPS to Submit'));
 
 // Find the Scaffold in the widget tree and use it to show a SnackBar.
@@ -218,7 +217,7 @@ class _GetHelpState extends State<GetHelp> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
             Text(
-              'Get Help from Gaurdians',
+              'Get Help from Guardians',
               style: const TextStyle(
                 color: Colors.white,
                 fontSize: 25.0,
