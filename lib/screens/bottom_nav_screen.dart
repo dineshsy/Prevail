@@ -72,31 +72,62 @@ class _BottomNavScreenState extends State<BottomNavScreen> {
                   mainAxisSize: MainAxisSize.max,
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: <Widget>[
-                    // ListTile(
-                    //     title: Center(
-                    //   child: FlatButton.icon(
-                    //     padding: const EdgeInsets.symmetric(
-                    //       vertical: 10.0,
-                    //       horizontal: 20.0,
-                    //     ),
-                    //     onPressed: () {
-                    //       _launchURL();
-                    //     },
-                    //     color: Colors.blue,
-                    //     shape: RoundedRectangleBorder(
-                    //       borderRadius: BorderRadius.circular(30.0),
-                    //     ),
-                    //     icon: const Icon(
-                    //       Icons.assignment,
-                    //       color: Colors.white,
-                    //     ),
-                    //     label: Text(
-                    //       'Github',
-                    //       style: Styles.buttonTextStyle,
-                    //     ),
-                    //     textColor: Colors.white,
-                    //   ),
-                    // )),
+                    ListTile(
+                      title: Center(
+                        child: Text("Contributors",
+                            style: TextStyle(
+                                fontSize: 20, fontWeight: FontWeight.w600)),
+                      ),
+                      subtitle: Column(
+                        children: <Widget>[
+                          buildGestureDetector(
+                              'https://www.linkedin.com/in/sy-d/', "Dinesh"),
+                          buildGestureDetector(
+                              'https://www.linkedin.com/in/vasanth-kumar-967810169/',
+                              "Vasanth Kumar"),
+                          buildGestureDetector(
+                              'https://www.linkedin.com/in/hemachandranvk/',
+                              "Hemachandran"),
+                        ],
+                      ),
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    SizedBox(
+                      height: 20,
+                      child: Container(
+                        decoration: BoxDecoration(
+                            border:
+                                Border(top: BorderSide(color: Colors.black26))),
+                      ),
+                    ),
+                    ListTile(
+                        title: Center(
+                      child: FlatButton.icon(
+                        padding: const EdgeInsets.symmetric(
+                          vertical: 10.0,
+                          horizontal: 20.0,
+                        ),
+                        onPressed: () {
+                          _launchURL(
+                              'https://github.com/VasanthKumar14/PREVAIL-APP');
+                        },
+                        color: Colors.blue,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(30.0),
+                        ),
+                        icon: Container(
+                            height: 23,
+                            child:
+                                Image.asset('assets/images/press-release.png')),
+                        label: Text(
+                          'Updates',
+                          style: Styles.buttonTextStyle,
+                        ),
+                        textColor: Colors.white,
+                      ),
+                    )),
                     ListTile(
                         title: Center(
                       child: FlatButton.icon(
@@ -172,12 +203,23 @@ class _BottomNavScreenState extends State<BottomNavScreen> {
     );
   }
 
-//   _launchURL() async {
-//     const url = 'https://www.github.com/dineshsy/AICTE';
-//     if (await canLaunch(url)) {
-//       await launch(url);
-//     } else {
-//       throw 'Could not launch $url';
-//     }
-//   }
+  Padding buildGestureDetector(String _url, String _name) {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: GestureDetector(
+        onTap: () => _launchURL(_url),
+        child: Text(_name,
+            style: TextStyle(color: Colors.blueAccent, fontSize: 15)),
+      ),
+    );
+  }
+
+  _launchURL(String _url) async {
+    String url = _url;
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
+  }
 }

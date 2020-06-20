@@ -51,7 +51,7 @@ class _VolunteerState extends State<Volunteer> {
                 height: MediaQuery.of(context).size.height * 0.45,
                 decoration: BoxDecoration(
                     image: DecorationImage(
-                        image: AssetImage('assets/images/66152.jpg'))),
+                        image: const AssetImage('assets/images/66152.jpg'))),
               ),
             ),
           ),
