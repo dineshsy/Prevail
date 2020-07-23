@@ -34,17 +34,18 @@ class _StatsGridState extends State<StatsGrid> {
       today_case = widget.list[widget.list.length - 1]['dailyconfirmed'];
       today_death = widget.list[widget.list.length - 1]['dailydeceased'];
       today_recovered = widget.list[widget.list.length - 1]['dailyrecovered'];
-      today_active = (int.parse(today_case) -
-              int.parse(today_death) -
-              int.parse(today_recovered))
+      today_active = (int.parse(total_case) -
+              int.parse(total_death) -
+              int.parse(total_recovered))
           .toString();
       yesterday_case = widget.list[widget.list.length - 2]['dailyconfirmed'];
       yesterday_death = widget.list[widget.list.length - 2]['dailydeceased'];
       yesterday_recovered =
           widget.list[widget.list.length - 2]['dailyrecovered'];
-      yesterday_active = (int.parse(yesterday_case) -
-              int.parse(yesterday_death) -
-              int.parse(yesterday_recovered))
+      yesterday_active = (int.parse(
+                  widget.list[widget.list.length - 2]['totalconfirmed']) -
+              int.parse(widget.list[widget.list.length - 2]['totaldeceased']) -
+              int.parse(widget.list[widget.list.length - 2]['totalrecovered']))
           .toString();
     });
     print(widget.list[widget.list.length - 2]);
